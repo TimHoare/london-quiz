@@ -1,10 +1,5 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'maplibre-gl/dist/maplibre-gl.css';
-import { setWorkerUrl } from 'maplibre-gl';
-// MapLibre builds its worker URL at runtime, so the bundler can't see it; hand it over explicitly.
-import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
-import { maplibreGL } from '@maplibre/maplibre-gl-leaflet';
 import './style.css';
 import { KINDS, STOPS, MAX_POINTS, judge, verdict, gameVerdict, grade, buildGame } from './game.js';
 import { centroid, distanceKm, formatKm } from './geo.js';
@@ -17,37 +12,11 @@ const isSmall = () => window.matchMedia('(max-width: 640px)').matches;
 // ---------------------------------------------------------------- map
 
 const LONDON = L.latLngBounds([51.286, -0.51], [51.692, 0.334]);
-const PLAIN_STYLE = 'https://tiles.openfreemap.org/styles/positron';
-const PLAIN_ATTRIBUTION = '<a href="https://openfreemap.org">OpenFreeMap</a> &copy; <a href="https://www.openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
-const FALLBACK = {
+// Satellite imagery: shows the layout of streets and buildings, and never a place name.
+const SATELLITE = {
   url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
   attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics',
 };
-
-/**
- * Fetch the OpenFreeMap Positron style and strip every text/icon layer, so the
- * map shows streets, parks and the river but never a name. Water and parks get
- * a little colour because that's how people actually find their way.
- */
-async function unlabelledStyle() {
-  const res = await fetch(PLAIN_STYLE);
-  if (!res.ok) throw new Error(`Map style failed to load (${res.status})`);
-  const style = await res.json();
-  const recolour = {
-    water: { 'fill-color': '#a9c4d6' },
-    waterway: { 'line-color': '#a9c4d6' },
-    park: { 'fill-color': '#d6e4cf' },
-    landcover_wood: { 'fill-color': '#d6e4cf' },
-    railway: { 'line-color': '#cdcdcd' },
-    railway_transit: { 'line-color': '#cdcdcd' },
-  };
-  style.layers = style.layers
-    .filter((l) => l.type !== 'symbol')
-    .map((l) => (recolour[l.id] ? { ...l, paint: { ...l.paint, ...recolour[l.id] } } : l));
-  return style;
-}
-
-setWorkerUrl(maplibreWorkerUrl);
 
 const map = L.map('map', {
   zoomControl: false,
@@ -351,7 +320,7 @@ function drawReveal(layer, { kind, item, guess, res }, { small = false, permanen
     }).addTo(layer);
   }
   if (!(kind === 'boroughs' && res.inside)) {
-    L.polyline([guess, res.nearest], { color: '#000', weight: small ? 1.5 : 2, dashArray: '6 6', interactive: false }).addTo(layer);
+    L.polyline([guess, res.nearest], { color: '#fff', weight: small ? 1.5 : 2, dashArray: '6 6', interactive: false }).addTo(layer);
   }
   L.marker(guess, { icon: pinIcon('guess'), keyboard: false, interactive: false }).addTo(layer);
   const at = kind === 'boroughs' ? { lat: item.lat, lng: item.lng } : res.nearest;
@@ -527,16 +496,14 @@ function bind() {
 
 async function boot() {
   fitLondon(false);
-  let style = null;
+  L.tileLayer(SATELLITE.url, { attribution: SATELLITE.attribution }).addTo(map);
   try {
-    [style] = await Promise.all([unlabelledStyle().catch(() => null), loadData()]);
+    await loadData();
   } catch (err) {
     $('home').querySelector('.home-copy').textContent = `${err.message}. Check the dev server is running, then reload.`;
     $('play').disabled = true;
     return;
   }
-  // If the vector style can't be fetched, satellite imagery is the only label-free fallback.
-  (style ? maplibreGL({ style, attribution: PLAIN_ATTRIBUTION }) : L.tileLayer(FALLBACK.url, { attribution: FALLBACK.attribution })).addTo(map);
   bind();
   toHome();
   if (import.meta.env.DEV) {

@@ -27,4 +27,4 @@ Keys: <kbd>Enter</kbd> confirms a guess or moves to the next stop, <kbd>H</kbd> 
 | `tfl-stations.geojson` | Stations, lines and zones from [oobrien/vis](https://github.com/oobrien/vis) (tubecreature) |
 | `landmarks-geocoded.json` | A hand-picked landmark list, geocoded with Nominatim and spot-checked |
 
-The basemap is OpenFreeMap's Positron style with every label layer removed at load time.
+The basemap is Esri World Imagery: satellite tiles, which show streets and buildings but no place names.
