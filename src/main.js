@@ -168,7 +168,7 @@ function renderLine() {
 }
 
 function nextStop() {
-  const { kind, item, revisit } = game.stops[game.i];
+  const { kind, item } = game.stops[game.i];
   game.guess = null;
   game.guessMarker = null;
   game.hinted = false;
@@ -183,7 +183,6 @@ function nextStop() {
   $('q-hint-text').replaceChildren();
   $('hint').hidden = false;
   $('hud-score').textContent = fmt.format(game.score);
-  $('revisit').hidden = !revisit;
   $('confirm').hidden = true;
   $('instruction').hidden = false;
   $('instruction').classList.remove('instruction--hint');
@@ -252,7 +251,6 @@ function confirmGuess() {
   $('hud-score').textContent = fmt.format(game.score);
   $('confirm').hidden = true;
   $('instruction').hidden = true;
-  $('revisit').hidden = true;
   renderLine();
 
   $('result').className = `sheet result result--${grade(res.points)}`;
@@ -348,17 +346,9 @@ function next() {
 function finish() {
   roundLayer.clearLayers();
   overviewLayer.clearLayers();
-  const previousBest = progress.bestScore('game');
-  const isBest = progress.submitScore('game', game.score);
+  progress.submitScore('game', game.score);
   $('s-score').textContent = fmt.format(game.score);
   $('s-title').textContent = gameVerdict(game.score);
-  const best = $('s-best');
-  best.classList.toggle('is-new-best', isBest && previousBest != null);
-  best.textContent = previousBest == null
-    ? 'Your first game. That’s the score to beat.'
-    : isBest
-      ? `New personal best, up from ${fmt.format(previousBest)}`
-      : `Your best: ${fmt.format(previousBest)}`;
   $('s-hint').textContent = `${isSmall() ? 'Tap' : 'Click'} a stop to see it on the map.`;
 
   // Ten permanent labels pile up on a phone, so there they appear one at a time.
@@ -394,10 +384,6 @@ function finish() {
     });
     list.append(li);
   }
-  const missed = game.results.filter((r) => grade(r.res.points) === 'poor').length;
-  $('s-again').textContent = missed
-    ? `The ${missed === 1 ? 'one' : missed} in red will come back in a later game.`
-    : 'Nothing missed this time.';
   show('summary');
   if (bounds.isValid()) fit(bounds, { maxZoom: 13 });
 }
