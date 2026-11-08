@@ -18,13 +18,12 @@ const SATELLITE = {
   attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics',
 };
 
+// How far the map may wander: Greater London plus about 5 km all round.
+const NEAR_LONDON = LONDON.pad(0.1);
+
 const map = L.map('map', {
   zoomControl: false,
-  // Loose on purpose: on a phone the view is shifted well south of the results to
-  // clear the bottom sheet, and tighter bounds would clamp it back behind the sheet.
-  maxBounds: LONDON.pad(3),
-  maxBoundsViscosity: 0.8,
-  minZoom: 9,
+  minZoom: 9, // raised to suit the screen in setMinZoom()
   maxZoom: 17,
   zoomSnap: 0.25,
   doubleClickZoom: false,
@@ -50,7 +49,9 @@ function mapPadding() {
  * current zoom ends; anything requested in between is superseded.
  */
 let pendingFit = null;
+let shown = LONDON; // what the app last framed; a guess can land just outside London
 function fit(bounds, options) {
+  shown = bounds;
   pendingFit = () => map.fitBounds(bounds, { ...mapPadding(), ...options });
   if (!map._animatingZoom) runPendingFit();
 }
@@ -62,6 +63,34 @@ function runPendingFit() {
 map.on('zoomend', () => {
   if (!map._animatingZoom) runPendingFit();
 });
+
+/**
+ * Pan freely, but ease back if the uncovered part of the map drifts away from London.
+ * Leaflet's own maxBounds can't do this: it constrains the whole map, not the part a
+ * sheet leaves visible, so bounds tight enough to matter would push results under a sheet.
+ */
+function keepNearLondon() {
+  if (map._animatingZoom || pendingFit) return;
+  const area = L.latLngBounds(NEAR_LONDON.getSouthWest(), NEAR_LONDON.getNorthEast()).extend(shown);
+  const { paddingTopLeft: [left, top], paddingBottomRight: [right, bottom] } = mapPadding();
+  const size = map.getSize();
+  const centre = L.point((left + size.x - right) / 2, (top + size.y - bottom) / 2);
+  const at = map.containerPointToLatLng(centre);
+  const clamped = L.latLng(
+    Math.min(Math.max(at.lat, area.getSouth()), area.getNorth()),
+    Math.min(Math.max(at.lng, area.getWest()), area.getEast()),
+  );
+  const offset = map.latLngToContainerPoint(clamped).subtract(centre).round();
+  if (offset.x || offset.y) map.panBy(offset);
+}
+map.on('moveend', keepNearLondon);
+
+/** Zooming out stops a little beyond the point where all of London fits on screen. */
+function setMinZoom() {
+  map.setMinZoom(Math.max(9, Math.floor(map.getBoundsZoom(LONDON.pad(0.25)) * 4) / 4));
+}
+setMinZoom();
+map.on('resize', setMinZoom);
 
 // On a portrait phone the whole of Greater London is tiny, so start a little tighter.
 const fitLondon = (animate = true) => fit(isSmall() ? LONDON.pad(-0.12) : LONDON, { animate });
