@@ -1,0 +1,814 @@
+[
+ {
+  "name": "Big Ben",
+  "tier": 1,
+  "lat": 51.50069,
+  "lng": -0.12457,
+  "src": "Elizabeth Tower, Bridge Street, Westminster, Millbank, City of Westminster, Greater London"
+ },
+ {
+  "name": "London Eye",
+  "tier": 1,
+  "lat": 51.50334,
+  "lng": -0.11968,
+  "src": "London Eye, Westminster Bridge Road, South Bank, Lambeth, London Borough of Lambeth, Great"
+ },
+ {
+  "name": "Tower of London",
+  "tier": 1,
+  "lat": 51.50822,
+  "lng": -0.07619,
+  "src": "Tower of London, Tower Hill, East Smithfield, Tower Hill, Whitechapel, London Borough of T"
+ },
+ {
+  "name": "Tower Bridge",
+  "tier": 1,
+  "lat": 51.50552,
+  "lng": -0.07537,
+  "src": "Tower Bridge, Thames Path, East Smithfield, Tower Hill, Wapping, London Borough of Tower H"
+ },
+ {
+  "name": "St Paul's Cathedral",
+  "tier": 1,
+  "lat": 51.51379,
+  "lng": -0.09845,
+  "src": "St Paul's Cathedral, St Paul's Churchyard, West Smithfield, St Paul's, City of London, Gre"
+ },
+ {
+  "name": "Buckingham Palace",
+  "tier": 1,
+  "lat": 51.50083,
+  "lng": -0.143,
+  "src": "Buckingham Palace, Buckingham Gate, Victoria, City of Westminster, Greater London, England"
+ },
+ {
+  "name": "The Shard",
+  "tier": 1,
+  "lat": 51.50437,
+  "lng": -0.08647,
+  "src": "The Shard, 32, London Bridge Street, London Bridge Quarter, Bermondsey Village, The Boroug"
+ },
+ {
+  "name": "Westminster Abbey",
+  "tier": 1,
+  "lat": 51.4994,
+  "lng": -0.12739,
+  "src": "Westminster Abbey, 20, Dean's Yard, Westminster, Millbank, City of Westminster, Greater Lo"
+ },
+ {
+  "name": "British Museum",
+  "tier": 1,
+  "lat": 51.51931,
+  "lng": -0.12671,
+  "src": "British Museum, Great Russell Street, St Giles, Bloomsbury, London Borough of Camden, Grea"
+ },
+ {
+  "name": "Natural History Museum",
+  "tier": 1,
+  "lat": 51.49651,
+  "lng": -0.176,
+  "src": "Natural History Museum, Cromwell Road, Brompton, Royal Borough of Kensington and Chelsea, "
+ },
+ {
+  "name": "Tate Modern",
+  "tier": 1,
+  "lat": 51.50743,
+  "lng": -0.09934,
+  "src": "Tate Modern, Bankside, Southwark, London Borough of Southwark, Greater London, England, SE"
+ },
+ {
+  "name": "Trafalgar Square",
+  "tier": 1,
+  "lat": 51.50742,
+  "lng": -0.12836,
+  "src": "Trafalgar Square, Westminster, Covent Garden, City of Westminster, Greater London, England"
+ },
+ {
+  "name": "Piccadilly Circus",
+  "tier": 1,
+  "lat": 51.51014,
+  "lng": -0.13394,
+  "src": "Piccadilly Circus, St. James's, East Marylebone, Covent Garden, City of Westminster, Great"
+ },
+ {
+  "name": "Royal Albert Hall",
+  "tier": 1,
+  "lat": 51.50101,
+  "lng": -0.17741,
+  "src": "Royal Albert Hall, 4, Kensington Gore, Knightsbridge, City of Westminster, Greater London,"
+ },
+ {
+  "name": "Wembley Stadium",
+  "tier": 1,
+  "lat": 51.55607,
+  "lng": -0.2796,
+  "src": "Wembley Stadium, Atlantic Crescent, London Borough of Brent, Greater London, England, HA9 "
+ },
+ {
+  "name": "The O2",
+  "tier": 1,
+  "lat": 51.50295,
+  "lng": 0.00446,
+  "src": "Frankie & Benny's, Peninsula Square, Greenwich Peninsula, Royal Borough of Greenwich, Grea"
+ },
+ {
+  "name": "Royal Observatory Greenwich",
+  "tier": 1,
+  "lat": 51.47736,
+  "lng": -0.00085,
+  "src": "Royal Observatory Greenwich, Blackheath Avenue, Greenwich Town Centre, East Greenwich, Roy"
+ },
+ {
+  "name": "Cutty Sark",
+  "tier": 1,
+  "lat": 51.48293,
+  "lng": -0.00961,
+  "src": "Cutty Sark, 43, King William Walk, Greenwich Town Centre, East Greenwich, Royal Borough of"
+ },
+ {
+  "name": "Kew Gardens",
+  "tier": 1,
+  "lat": 51.4833,
+  "lng": -0.29307,
+  "src": "The Orangery, Kew Green, Kew, London Borough of Richmond upon Thames, Greater London, Engl"
+ },
+ {
+  "name": "Hampton Court Palace",
+  "tier": 1,
+  "lat": 51.40368,
+  "lng": -0.3377,
+  "src": "Hampton Court Palace, Tennis Court Lane, Hampton Wick, London Borough of Richmond upon Tha"
+ },
+ {
+  "name": "Camden Market",
+  "tier": 1,
+  "lat": 51.54238,
+  "lng": -0.14719,
+  "src": "Camden Market, 56-56, Camden Lock Place, Primrose Hill, Chalk Farm, London Borough of Camd"
+ },
+ {
+  "name": "Borough Market",
+  "tier": 1,
+  "lat": 51.50553,
+  "lng": -0.09044,
+  "src": "Borough Market, Bankside, The Borough, London Borough of Southwark, Greater London, Englan"
+ },
+ {
+  "name": "Harrods",
+  "tier": 1,
+  "lat": 51.49921,
+  "lng": -0.16299,
+  "src": "Harrods, 87-135, Brompton Road, Hans Town, Knightsbridge, Royal Borough of Kensington and "
+ },
+ {
+  "name": "Covent Garden Market",
+  "tier": 1,
+  "lat": 51.51198,
+  "lng": -0.12274,
+  "src": "Covent Garden Market, Covent Garden, St Clement Danes, Covent Garden, City of Westminster,"
+ },
+ {
+  "name": "Abbey Road crossing",
+  "tier": 1,
+  "lat": 51.53199,
+  "lng": -0.17823,
+  "src": "Abbey Road Studios, 3, Abbey Road, St. John's Wood, City of Westminster, Greater London, E"
+ },
+ {
+  "name": "Hyde Park",
+  "tier": 1,
+  "lat": 51.50749,
+  "lng": -0.16221,
+  "src": "Hyde Park, Grosvenor Crescent Mews, Belgravia, City of Westminster, Greater London, Englan"
+ },
+ {
+  "name": "Regent's Park",
+  "tier": 1,
+  "lat": 51.53013,
+  "lng": -0.15376,
+  "src": "The Regent's Park, Marylebone, City of Westminster, Greater London, England, NW1 4NR, Unit"
+ },
+ {
+  "name": "London Zoo",
+  "tier": 1,
+  "lat": 51.53481,
+  "lng": -0.15481,
+  "src": "London Zoo, Outer Circle, St. John's Wood, City of Westminster, Greater London, England, N"
+ },
+ {
+  "name": "Heathrow Airport",
+  "tier": 1,
+  "lat": 51.46774,
+  "lng": -0.45878,
+  "src": "London Heathrow Airport, Southern Perimeter Road, London Borough of Hillingdon, Greater Lo"
+ },
+ {
+  "name": "King's Cross station",
+  "tier": 1,
+  "lat": 51.5324,
+  "lng": -0.12302,
+  "src": "London King's Cross, Euston Road, King's Cross, London Borough of Camden, Greater London, "
+ },
+ {
+  "name": "Marble Arch",
+  "tier": 1,
+  "lat": 51.51318,
+  "lng": -0.15891,
+  "src": "Marble Arch, Marylebone, City of Westminster, Greater London, England, W1C 1LZ, United Kin"
+ },
+ {
+  "name": "10 Downing Street",
+  "tier": 1,
+  "lat": 51.50349,
+  "lng": -0.1277,
+  "src": "10 Downing Street, 10, Downing Street, Westminster, Covent Garden, City of Westminster, Gr"
+ },
+ {
+  "name": "Shakespeare's Globe",
+  "tier": 1,
+  "lat": 51.50812,
+  "lng": -0.09719,
+  "src": "Shakespeare's Globe, 21, New Globe Walk, Bankside, Southwark, London Borough of Southwark,"
+ },
+ {
+  "name": "Kensington Palace",
+  "tier": 1,
+  "lat": 51.50509,
+  "lng": -0.18763,
+  "src": "Kensington Palace, Palace Avenue, South Kensington, Royal Borough of Kensington and Chelse"
+ },
+ {
+  "name": "Olympic Stadium",
+  "tier": 1,
+  "lat": 51.53669,
+  "lng": -0.01575,
+  "src": "London Marathon Community Track, Queen Elizabeth Olympic Park, London Borough of Newham, G"
+ },
+ {
+  "name": "The Gherkin",
+  "tier": 1,
+  "lat": 51.5145,
+  "lng": -0.08033,
+  "src": "30 St Mary Axe, 30, Saint Mary Axe, Leadenhall Market, Bishopsgate, City of London, Greate"
+ },
+ {
+  "name": "Emirates Stadium",
+  "tier": 2,
+  "lat": 51.55504,
+  "lng": -0.1084,
+  "src": "Emirates Stadium, 75, Drayton Park, Finsbury Park, London Borough of Islington, Greater Lo"
+ },
+ {
+  "name": "Tottenham Hotspur Stadium",
+  "tier": 2,
+  "lat": 51.60416,
+  "lng": -0.06626,
+  "src": "Tottenham Hotspur Stadium, Paxton Place, London Borough of Haringey, Greater London, Engla"
+ },
+ {
+  "name": "Stamford Bridge",
+  "tier": 2,
+  "lat": 51.48129,
+  "lng": -0.18975,
+  "src": "Frankie's, Fulham Road, Wandon Estate, Fulham, London Borough of Hammersmith and Fulham, G"
+ },
+ {
+  "name": "Lord's Cricket Ground",
+  "tier": 2,
+  "lat": 51.5298,
+  "lng": -0.17204,
+  "src": "Lord's Cricket Ground, St John's Wood Road, St. John's Wood, City of Westminster, Greater "
+ },
+ {
+  "name": "Twickenham Stadium",
+  "tier": 2,
+  "lat": 51.45601,
+  "lng": -0.3415,
+  "src": "Allianz Stadium, 200, Whitton Road, Strawberry Hill, Twickenham, Greater London, England, "
+ },
+ {
+  "name": "Battersea Power Station",
+  "tier": 2,
+  "lat": 51.48177,
+  "lng": -0.14458,
+  "src": "Battersea Power Station, Circus Road East, Nine Elms, Clapham Junction, London Borough of "
+ },
+ {
+  "name": "Alexandra Palace",
+  "tier": 2,
+  "lat": 51.59435,
+  "lng": -0.13064,
+  "src": "Alexandra Palace, Alexandra Palace Way, Muswell Hill, London Borough of Haringey, Greater "
+ },
+ {
+  "name": "Crystal Palace Park",
+  "tier": 2,
+  "lat": 51.42139,
+  "lng": -0.07004,
+  "src": "Crystal Palace Park, Crystal Palace, London Borough of Bromley, Greater London, England, S"
+ },
+ {
+  "name": "Hampstead Heath",
+  "tier": 2,
+  "lat": 51.56415,
+  "lng": -0.16714,
+  "src": "Hampstead Heath, London Borough of Camden, Greater London, England, United Kingdom"
+ },
+ {
+  "name": "Primrose Hill",
+  "tier": 2,
+  "lat": 51.53905,
+  "lng": -0.16246,
+  "src": "Primrose Hill, Chalk Farm, London Borough of Camden, Greater London, England, NW8 7LS, Uni"
+ },
+ {
+  "name": "Richmond Park",
+  "tier": 2,
+  "lat": 51.43851,
+  "lng": -0.27474,
+  "src": "Richmond Park, London Borough of Richmond upon Thames, Greater London, England, United Kin"
+ },
+ {
+  "name": "Victoria and Albert Museum",
+  "tier": 2,
+  "lat": 51.49688,
+  "lng": -0.17164,
+  "src": "Victoria and Albert Museum, Cromwell Road, Brompton, Royal Borough of Kensington and Chels"
+ },
+ {
+  "name": "Science Museum",
+  "tier": 2,
+  "lat": 51.4974,
+  "lng": -0.17467,
+  "src": "Science Museum, Exhibition Road, Brompton, Royal Borough of Kensington and Chelsea, Greate"
+ },
+ {
+  "name": "Tate Britain",
+  "tier": 2,
+  "lat": 51.49112,
+  "lng": -0.12782,
+  "src": "Tate Britain, Millbank, Tachbrook Estate, Millbank, City of Westminster, Greater London, E"
+ },
+ {
+  "name": "Imperial War Museum",
+  "tier": 2,
+  "lat": 51.49593,
+  "lng": -0.1086,
+  "src": "Imperial War Museum London, Lambeth Road, Elephant and Castle, London Borough of Southwark"
+ },
+ {
+  "name": "Barbican Centre",
+  "tier": 2,
+  "lat": 51.51978,
+  "lng": -0.09376,
+  "src": "Barbican Centre (Cinema), Sculpture Court, Barbican Estate, Barbican, City of London, Grea"
+ },
+ {
+  "name": "Somerset House",
+  "tier": 2,
+  "lat": 51.51169,
+  "lng": -0.11744,
+  "src": "The Courtauld Institute of Art, Strand, St Clement Danes, Covent Garden, City of Westminst"
+ },
+ {
+  "name": "Leadenhall Market",
+  "tier": 2,
+  "lat": 51.51273,
+  "lng": -0.0834,
+  "src": "Leadenhall Market, Gracechurch Street, Leadenhall Market, Monument, City of London, Greate"
+ },
+ {
+  "name": "Highgate Cemetery",
+  "tier": 2,
+  "lat": 51.56778,
+  "lng": -0.14859,
+  "src": "Highgate Cemetery, Highgate, London Borough of Camden, Greater London, England, N6 6PJ, Un"
+ },
+ {
+  "name": "Millennium Bridge",
+  "tier": 2,
+  "lat": 51.50989,
+  "lng": -0.09851,
+  "src": "Millennium Bridge, Peter's Hill, St Paul's, City of London, Greater London, England, EC4V "
+ },
+ {
+  "name": "Brick Lane",
+  "tier": 2,
+  "lat": 51.51771,
+  "lng": -0.07093,
+  "src": "Brick Lane, Spitalfields, Whitechapel, London Borough of Tower Hamlets, Greater London, En"
+ },
+ {
+  "name": "London City Airport",
+  "tier": 2,
+  "lat": 51.50427,
+  "lng": 0.0549,
+  "src": "London City Airport, Hartmann Road, North Woolwich, London Borough of Newham, Greater Lond"
+ },
+ {
+  "name": "One Canada Square",
+  "tier": 2,
+  "lat": 51.50495,
+  "lng": -0.01951,
+  "src": "One Canada Square, 1, Canada Square, Canary Wharf, London Borough of Tower Hamlets, Greate"
+ },
+ {
+  "name": "BT Tower",
+  "tier": 2,
+  "lat": 51.52144,
+  "lng": -0.1388,
+  "src": "BT Tower, Cleveland Street, Fitzrovia, London Borough of Camden, Greater London, England, "
+ },
+ {
+  "name": "Walkie-Talkie (20 Fenchurch St)",
+  "tier": 2,
+  "lat": 51.51127,
+  "lng": -0.08354,
+  "src": "Sky Garden, 20, Fenchurch Street, Leadenhall Market, Monument, City of London, Greater Lon"
+ },
+ {
+  "name": "Southbank Centre",
+  "tier": 2,
+  "lat": 51.50578,
+  "lng": -0.11679,
+  "src": "Southbank Centre, Belvedere Road, South Bank, Waterloo, London Borough of Lambeth, Greater"
+ },
+ {
+  "name": "Thames Barrier",
+  "tier": 2,
+  "lat": 51.49689,
+  "lng": 0.03729,
+  "src": "Thames Barrier, Charlton Riverside, Royal Borough of Greenwich, Greater London, England, S"
+ },
+ {
+  "name": "Bank of England",
+  "tier": 2,
+  "lat": 51.51416,
+  "lng": -0.08894,
+  "src": "Bank of England, 8AH, Threadneedle Street, Leadenhall Market, Bank, City of London, Greate"
+ },
+ {
+  "name": "St Pancras International",
+  "tier": 2,
+  "lat": 51.53221,
+  "lng": -0.12762,
+  "src": "St Pancras International, Midland Road, Somers Town, London Borough of Camden, Greater Lon"
+ },
+ {
+  "name": "Paddington station",
+  "tier": 2,
+  "lat": 51.5171,
+  "lng": -0.17732,
+  "src": "London Paddington, Praed Street, Paddington, City of Westminster, Greater London, England,"
+ },
+ {
+  "name": "Waterloo station",
+  "tier": 2,
+  "lat": 51.50196,
+  "lng": -0.11319,
+  "src": "London Waterloo Station, Cab Road, South Bank, Waterloo, London Borough of Lambeth, Greate"
+ },
+ {
+  "name": "Liverpool Street station",
+  "tier": 2,
+  "lat": 51.51821,
+  "lng": -0.08143,
+  "src": "London Liverpool Street, Great Eastern Walkway, Bishopsgate Without, Bishopsgate, City of "
+ },
+ {
+  "name": "Victoria station",
+  "tier": 2,
+  "lat": 51.49505,
+  "lng": -0.14485,
+  "src": "Victoria Station, Terminus Place, Victoria, City of Westminster, Greater London, England, "
+ },
+ {
+  "name": "Euston station",
+  "tier": 2,
+  "lat": 51.52885,
+  "lng": -0.13419,
+  "src": "London Euston, Eversholt Street, St Pancras, London Borough of Camden, Greater London, Eng"
+ },
+ {
+  "name": "Selfridges",
+  "tier": 2,
+  "lat": 51.5146,
+  "lng": -0.15282,
+  "src": "Selfridges, Oxford Street, East Marylebone, Mayfair, City of Westminster, Greater London, "
+ },
+ {
+  "name": "Clapham Common",
+  "tier": 2,
+  "lat": 51.4618,
+  "lng": -0.1383,
+  "src": "Clapham Common, The Pavement, Clapham, London Borough of Lambeth, Greater London, England,"
+ },
+ {
+  "name": "Battersea Park",
+  "tier": 2,
+  "lat": 51.47921,
+  "lng": -0.15706,
+  "src": "Battersea Park, Battersea, London Borough of Wandsworth, Greater London, England, United K"
+ },
+ {
+  "name": "Victoria Park",
+  "tier": 2,
+  "lat": 51.53896,
+  "lng": -0.03406,
+  "src": "Victoria Park, Bethnal Green, London Borough of Tower Hamlets, Greater London, England, Un"
+ },
+ {
+  "name": "Little Venice",
+  "tier": 2,
+  "lat": 51.52119,
+  "lng": -0.1824,
+  "src": "Little Venice, Kensal Town, Paddington, City of Westminster, Greater London, England, W2 6"
+ },
+ {
+  "name": "Royal Courts of Justice",
+  "tier": 2,
+  "lat": 51.51422,
+  "lng": -0.11322,
+  "src": "Royal Courts of Justice, Strand, St Clement Danes, Covent Garden, City of Westminster, Gre"
+ },
+ {
+  "name": "MI6 Building",
+  "tier": 2,
+  "lat": 51.48726,
+  "lng": -0.12435,
+  "src": "Secret Intelligence Service, 85, Albert Embankment, Vauxhall, London Borough of Lambeth, G"
+ },
+ {
+  "name": "Kenwood House",
+  "tier": 3,
+  "lat": 51.57155,
+  "lng": -0.16734,
+  "src": "Kenwood House, Lime Avenue, North End, Highgate, London Borough of Camden, Greater London,"
+ },
+ {
+  "name": "Chiswick House",
+  "tier": 3,
+  "lat": 51.48382,
+  "lng": -0.25853,
+  "src": "Chiswick House, Grand Allee, London Borough of Hounslow, Greater London, England, W4 3EP, "
+ },
+ {
+  "name": "Syon House",
+  "tier": 3,
+  "lat": 51.47677,
+  "lng": -0.3122,
+  "src": "Syon House, Lime Avenue, Spring Grove, London Borough of Hounslow, Greater London, England"
+ },
+ {
+  "name": "Osterley Park",
+  "tier": 3,
+  "lat": 51.48938,
+  "lng": -0.35217,
+  "src": "Osterley House, Jersey Road, Lampton, Osterley, London Borough of Hounslow, Greater London"
+ },
+ {
+  "name": "Bushy Park",
+  "tier": 3,
+  "lat": 51.41684,
+  "lng": -0.33703,
+  "src": "Bushy Park, London Borough of Richmond upon Thames, Greater London, England, United Kingdo"
+ },
+ {
+  "name": "Eltham Palace",
+  "tier": 3,
+  "lat": 51.4471,
+  "lng": 0.04859,
+  "src": "Eltham Palace, Court Yard, Middle Park, Royal Borough of Greenwich, Greater London, Englan"
+ },
+ {
+  "name": "Dulwich Picture Gallery",
+  "tier": 3,
+  "lat": 51.44596,
+  "lng": -0.08633,
+  "src": "Dulwich Picture Gallery, 14, Gallery Road, Dulwich Village, London Borough of Southwark, G"
+ },
+ {
+  "name": "Horniman Museum",
+  "tier": 3,
+  "lat": 51.44102,
+  "lng": -0.061,
+  "src": "Horniman Museum, 100, London Road, Upper Sydenham, Forest Hill, London Borough of Lewisham"
+ },
+ {
+  "name": "Brixton Academy",
+  "tier": 3,
+  "lat": 51.4657,
+  "lng": -0.11487,
+  "src": "O2 Academy Brixton, 211, Stockwell Road, Stockwell Park, Brixton, London Borough of Lambet"
+ },
+ {
+  "name": "Hammersmith Apollo",
+  "tier": 3,
+  "lat": 51.49075,
+  "lng": -0.22445,
+  "src": "Eventim Apollo, 45, Queen Caroline Street, Hammersmith, London Borough of Hammersmith and "
+ },
+ {
+  "name": "Wormwood Scrubs",
+  "tier": 3,
+  "lat": 51.51717,
+  "lng": -0.24044,
+  "src": "HMP Wormwood Scrubs, Artillery Lane, Shepherd's Bush, London Borough of Hammersmith and Fu"
+ },
+ {
+  "name": "Walthamstow Wetlands",
+  "tier": 3,
+  "lat": 51.58012,
+  "lng": -0.0518,
+  "src": "Walthamstow Wetlands, Leyton, London Borough of Waltham Forest, Greater London, England, N"
+ },
+ {
+  "name": "Hackney Marshes",
+  "tier": 3,
+  "lat": 51.5565,
+  "lng": -0.02906,
+  "src": "Hackney Marshes, Homerton, London Borough of Hackney, Greater London, England, United King"
+ },
+ {
+  "name": "Columbia Road Flower Market",
+  "tier": 3,
+  "lat": 51.52826,
+  "lng": -0.0754,
+  "src": "Columbia Road, Spitalfields, Whitechapel, London Borough of Tower Hamlets, Greater London,"
+ },
+ {
+  "name": "Selhurst Park",
+  "tier": 3,
+  "lat": 51.39824,
+  "lng": -0.08526,
+  "src": "Selhurst Park, Whitehorse Lane, Thornton Heath, London Borough of Croydon, Greater London,"
+ },
+ {
+  "name": "Craven Cottage",
+  "tier": 3,
+  "lat": 51.47492,
+  "lng": -0.22174,
+  "src": "Craven Cottage, Stevenage Road, Fulham, London Borough of Hammersmith and Fulham, Greater "
+ },
+ {
+  "name": "The Den (Millwall)",
+  "tier": 3,
+  "lat": 51.48597,
+  "lng": -0.05091,
+  "src": "The Den, John Berylson Way, South Bermondsey, Bermondsey, London Borough of Lewisham, Grea"
+ },
+ {
+  "name": "The Valley (Charlton)",
+  "tier": 3,
+  "lat": 51.48639,
+  "lng": 0.03616,
+  "src": "The Valley, Floyd Road, Charlton, Royal Borough of Greenwich, Greater London, England, SE7"
+ },
+ {
+  "name": "Gtech Community Stadium",
+  "tier": 3,
+  "lat": 51.49071,
+  "lng": -0.28898,
+  "src": "Gtech Community Stadium, Lionel Road South, Strand-on-the-Green, Brentford, Greater London"
+ },
+ {
+  "name": "Brompton Cemetery",
+  "tier": 3,
+  "lat": 51.48514,
+  "lng": -0.19105,
+  "src": "Brompton Cemetery, Earl's Court, Royal Borough of Kensington and Chelsea, Greater London, "
+ },
+ {
+  "name": "Kensal Green Cemetery",
+  "tier": 3,
+  "lat": 51.52835,
+  "lng": -0.22464,
+  "src": "Kensal Green Cemetery, North Kensington, Royal Borough of Kensington and Chelsea, Greater "
+ },
+ {
+  "name": "Abney Park Cemetery",
+  "tier": 3,
+  "lat": 51.56442,
+  "lng": -0.07773,
+  "src": "Abney Park, West Hackney, London Borough of Hackney, Greater London, England, United Kingd"
+ },
+ {
+  "name": "Lloyd's building",
+  "tier": 3,
+  "lat": 51.51296,
+  "lng": -0.08241,
+  "src": "Lloyd's of London, 1, Lime Street, Leadenhall Market, Bishopsgate, City of London, Greater"
+ },
+ {
+  "name": "Ham House",
+  "tier": 3,
+  "lat": 51.44424,
+  "lng": -0.31404,
+  "src": "Ham House, Ham Avenues, Petersham, London Borough of Richmond upon Thames, Greater London,"
+ },
+ {
+  "name": "Strawberry Hill House",
+  "tier": 3,
+  "lat": 51.4382,
+  "lng": -0.33473,
+  "src": "Strawberry Hill House, 268, Waldegrave Road, Strawberry Hill, Twickenham, Greater London, "
+ },
+ {
+  "name": "Eel Pie Island",
+  "tier": 3,
+  "lat": 51.44513,
+  "lng": -0.32541,
+  "src": "Eel Pie Island, St Margarets, London Borough of Richmond upon Thames, Greater London, Engl"
+ },
+ {
+  "name": "Trellick Tower",
+  "tier": 3,
+  "lat": 51.52362,
+  "lng": -0.20541,
+  "src": "Trellick Tower, Golborne Road, North Kensington, Royal Borough of Kensington and Chelsea, "
+ },
+ {
+  "name": "Balfron Tower",
+  "tier": 3,
+  "lat": 51.51351,
+  "lng": -0.00883,
+  "src": "Balfron Tower, St Leonard's Road, Poplar, London Borough of Tower Hamlets, Greater London,"
+ },
+ {
+  "name": "Wellington Arch",
+  "tier": 3,
+  "lat": 51.5025,
+  "lng": -0.15082,
+  "src": "Wellington Arch, Apsley Way, Belgravia, City of Westminster, Greater London, England, W1J "
+ },
+ {
+  "name": "William Morris Gallery",
+  "tier": 3,
+  "lat": 51.59129,
+  "lng": -0.0203,
+  "src": "William Morris Gallery, Forest Road, Higham Hill, Highams Park, London Borough of Waltham "
+ },
+ {
+  "name": "Sutton House",
+  "tier": 3,
+  "lat": 51.54846,
+  "lng": -0.05045,
+  "src": "Sutton House, 2 & 4, Homerton High Street, Lower Clapton, Hackney, London Borough of Hackn"
+ },
+ {
+  "name": "Brockwell Lido",
+  "tier": 3,
+  "lat": 51.45304,
+  "lng": -0.10647,
+  "src": "Brockwell Lido, Dulwich Road, Herne Hill, London Borough of Lambeth, Greater London, Engla"
+ },
+ {
+  "name": "Tooting Bec Lido",
+  "tier": 3,
+  "lat": 51.43243,
+  "lng": -0.13936,
+  "src": "Tooting Bec Lido, Bedford Hill, Balham, London Borough of Wandsworth, Greater London, Engl"
+ },
+ {
+  "name": "Peckham Rye",
+  "tier": 3,
+  "lat": 51.45645,
+  "lng": -0.06008,
+  "src": "Peckham Rye Park, Nunhead, London Borough of Southwark, Greater London, England, SE22 0SH,"
+ },
+ {
+  "name": "Wanstead Flats",
+  "tier": 3,
+  "lat": 51.55959,
+  "lng": 0.02219,
+  "src": "Wanstead Flats, Wanstead, London Borough of Redbridge, Greater London, England, United Kin"
+ },
+ {
+  "name": "Crossness Pumping Station",
+  "tier": 3,
+  "lat": 51.50909,
+  "lng": 0.13845,
+  "src": "Crossness Pumping Station, Bazalgette Way, Lower Belvedere, London Borough of Bexley, Grea"
+ },
+ {
+  "name": "Royal Arsenal",
+  "tier": 3,
+  "lat": 51.49504,
+  "lng": 0.07088,
+  "src": "Royal Arsenal, James Clavell Square, Royal Arsenal Riverside, Glyndon, Plumstead, Royal Bo"
+ },
+ {
+  "name": "Down House",
+  "tier": 3,
+  "lat": 51.33145,
+  "lng": 0.05339,
+  "src": "Down House, Luxted Road, Luxted, London Borough of Bromley, Greater London, England, BR6 7"
+ },
+ {
+  "name": "Lee Valley VeloPark",
+  "tier": 3,
+  "lat": 51.55038,
+  "lng": -0.01524,
+  "src": "Lee Valley VeloPark, Abercrombie Road, Chobham Manor, Stratford, London Borough of Newham,"
+ }
+]
