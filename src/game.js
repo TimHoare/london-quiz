@@ -20,6 +20,8 @@ const KIND_MIX = ['places', 'places', 'places', 'places', 'places', 'landmarks',
 /** Stops where a place you previously missed can come back. */
 const REVISIT_STOPS = [3, 5, 8];
 export const MISSED_BELOW = 500;
+/** How long a place you've been asked stays out of new games, missed or not. */
+const REST = 12 * 3600e3;
 
 export function pointsFor(km, kind, hinted = false) {
   const { perfect, scale } = KINDS[kind];
@@ -92,53 +94,68 @@ function shuffle(list, random) {
   return a;
 }
 
+/** Southwark the neighbourhood and Southwark the borough count as the same answer. */
+const nameOf = (item) => item.name.toLowerCase();
+
+/** When each name was last asked, whichever kind of question it was asked as. */
+function lastAsked(pools, stats) {
+  const asked = new Map();
+  for (const [kind, byId] of Object.entries(stats)) {
+    for (const item of pools[kind] ?? []) {
+      const at = byId[item.id]?.at;
+      if (at > (asked.get(nameOf(item)) ?? -Infinity)) asked.set(nameOf(item), at);
+    }
+  }
+  return asked;
+}
+
 /**
- * Weighted draw of one item. Unseen and badly-guessed items come up more; anything
- * played in the last half hour is pushed to the back of the queue.
+ * Weighted draw of one item. Unseen and badly-guessed items come up more. Anything
+ * still resting is left out, unless the whole pool is, when the stalest item goes.
  */
-function draw(pool, stats, taken, { now, random }) {
-  const options = pool.filter((it) => !taken.has(it.id));
+function draw(pool, stats, taken, { now, random, asked }) {
+  const options = pool.filter((it) => !taken.has(nameOf(it)));
   if (!options.length) return null;
-  const weights = options.map((it) => {
+  const askedAt = (it) => asked.get(nameOf(it)) ?? -Infinity;
+  const rested = options.filter((it) => now - askedAt(it) >= REST);
+  if (!rested.length) return options.reduce((a, b) => (askedAt(b) < askedAt(a) ? b : a));
+  const weights = rested.map((it) => {
     const s = stats[it.id];
-    if (!s) return 1.5;
-    let w = 0.3 + 2.5 * (1 - s.last / MAX_POINTS);
-    if (now - s.at < 30 * 60000) w *= 0.15;
-    return w;
+    return s ? 0.3 + 2.5 * (1 - s.last / MAX_POINTS) : 1.5;
   });
   let r = random() * weights.reduce((a, b) => a + b, 0);
-  for (let i = 0; i < options.length; i++) {
-    if ((r -= weights[i]) <= 0) return options[i];
+  for (let i = 0; i < rested.length; i++) {
+    if ((r -= weights[i]) <= 0) return rested[i];
   }
-  return options[options.length - 1];
+  return rested[rested.length - 1];
 }
 
 /**
  * Build one game: ten stops of rising difficulty, mostly neighbourhoods with a few
  * landmarks, stations and a borough. Up to three places you previously missed are
- * slotted back in so they get another go.
+ * slotted back in so they get another go, once they've had a rest.
  *
  * `pools` maps kind -> items (each with id and tier); `stats` maps kind -> id -> record.
  */
 export function buildGame(pools, stats = {}, { now = Date.now(), random = Math.random } = {}) {
   const kinds = shuffle(KIND_MIX, random);
-  const taken = Object.fromEntries(Object.keys(KINDS).map((k) => [k, new Set()]));
+  const taken = new Set();
+  const asked = lastAsked(pools, stats);
   const stops = new Array(STOPS).fill(null);
 
-  // Missed places come back, but not ones you only just saw.
   const missed = shuffle(
     Object.entries(stats).flatMap(([kind, byId]) =>
       Object.entries(byId)
-        .filter(([, s]) => isMissed(s) && now - s.at > 2 * 60000)
+        .filter(([, s]) => isMissed(s))
         .map(([id]) => ({ kind, item: pools[kind]?.find((it) => it.id === id) }))
-        .filter((m) => m.item)),
+        .filter((m) => m.item && now - asked.get(nameOf(m.item)) >= REST)),
     random,
   );
   for (const at of REVISIT_STOPS) {
-    const m = missed.shift();
+    const m = missed.find((c) => !taken.has(nameOf(c.item)));
     if (!m) break;
     stops[at] = { kind: m.kind, item: m.item, revisit: true };
-    taken[m.kind].add(m.item.id);
+    taken.add(nameOf(m.item));
   }
 
   for (let i = 0; i < STOPS; i++) {
@@ -148,9 +165,9 @@ export function buildGame(pools, stats = {}, { now = Date.now(), random = Math.r
     const pool = pools[kind];
     // Use the hardest tier this kind has, up to the stop's difficulty (boroughs stop at 2).
     const top = Math.max(...pool.filter((it) => it.tier <= tier).map((it) => it.tier));
-    const item = draw(pool.filter((it) => it.tier === top), stats[kind] ?? {}, taken[kind], { now, random })
-      ?? draw(pool, {}, taken[kind], { now, random });
-    taken[kind].add(item.id);
+    const item = draw(pool.filter((it) => it.tier === top), stats[kind] ?? {}, taken, { now, random, asked })
+      ?? draw(pool, {}, taken, { now, random, asked });
+    taken.add(nameOf(item));
     stops[i] = { kind, item, revisit: false };
   }
   return stops;

@@ -127,7 +127,7 @@ test('places you missed come back, ones you nailed are rarer', () => {
   const now = Date.now();
   const hour = 3600e3;
   const brixton = places.find((p) => p.name === 'Brixton');
-  const stats = { places: { [brixton.id]: { n: 1, best: 40, last: 40, at: now - hour } } };
+  const stats = { places: { [brixton.id]: { n: 1, best: 40, last: 40, at: now - 24 * hour } } };
   let back = 0;
   for (let seed = 1; seed <= 20; seed++) {
     const game = buildGame(pools, stats, { now, random: seeded(seed) });
@@ -148,12 +148,53 @@ test('places you missed come back, ones you nailed are rarer', () => {
   assert.ok(seen / 200 > 0.04, `unseen place appeared in ${seen} of 200 games`);
 });
 
-test('a missed place played seconds ago waits for a later game', () => {
+test('a place asked within the last few hours stays out of new games', () => {
   const now = Date.now();
   const brixton = places.find((p) => p.name === 'Brixton');
-  const stats = { places: { [brixton.id]: { n: 1, best: 0, last: 0, at: now - 1000 } } };
-  const game = buildGame(pools, stats, { now, random: seeded(3) });
-  assert.ok(!game.some((s) => s.revisit));
+  for (const ago of [1000, 3600e3, 11 * 3600e3]) {
+    const stats = { places: { [brixton.id]: { n: 1, best: 0, last: 0, at: now - ago } } };
+    for (let seed = 1; seed <= 50; seed++) {
+      const game = buildGame(pools, stats, { now, random: seeded(seed) });
+      assert.ok(!game.some((s) => s.revisit));
+      assert.ok(!game.some((s) => s.item.name === 'Brixton'));
+    }
+  }
+});
+
+test('a name asked as one kind of question rests as every other kind too', () => {
+  const now = Date.now();
+  const station = stations.find((s) => s.name === 'Brixton');
+  const stats = { stations: { [station.id]: { n: 1, best: 900, last: 900, at: now - 3600e3 } } };
+  for (let seed = 1; seed <= 200; seed++) {
+    const game = buildGame(pools, stats, { now, random: seeded(seed) });
+    assert.ok(!game.some((s) => s.item.name === 'Brixton'), `seed ${seed}`);
+  }
+});
+
+test('a game never asks the same name twice', () => {
+  for (let seed = 1; seed <= 500; seed++) {
+    const names = buildGame(pools, {}, { random: seeded(seed) }).map((s) => s.item.name.toLowerCase());
+    assert.equal(new Set(names).size, STOPS, names.join(', '));
+  }
+});
+
+test('when everything is resting, the stalest place comes up first', () => {
+  const now = Date.now();
+  const tiny = {
+    ...pools,
+    boroughs: pools.boroughs.filter((b) => b.tier === 1).slice(0, 2),
+  };
+  const [older, newer] = tiny.boroughs;
+  const stats = {
+    boroughs: {
+      [older.id]: { n: 1, best: 900, last: 900, at: now - 2 * 3600e3 },
+      [newer.id]: { n: 1, best: 900, last: 900, at: now - 3600e3 },
+    },
+  };
+  for (let seed = 1; seed <= 20; seed++) {
+    const game = buildGame(tiny, stats, { now, random: seeded(seed) });
+    assert.equal(game.find((s) => s.kind === 'boroughs').item.id, older.id);
+  }
 });
 
 test('formatKm', () => {
