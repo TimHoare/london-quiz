@@ -4,14 +4,15 @@ export const MAX_POINTS = 1000;
 export const STOPS = 10;
 
 /**
- * Question types. `perfect` is the radius that still earns full marks (an area is
- * big, a station is a dot); `scale` is how quickly points fall away beyond it.
+ * Question types. `radius` is how far from the centre (km) still earns full marks;
+ * big parks and areas carry their own `r` in the data. `scale` is how far past that
+ * edge the score has fallen to half: places are fuzzy, a station is a dot.
  */
 export const KINDS = {
-  places: { noun: 'neighbourhood', perfect: 0.4, scale: 2.0 },
-  stations: { noun: 'tube station', perfect: 0.2, scale: 1.5 },
-  landmarks: { noun: 'landmark', perfect: 0.2, scale: 1.5 },
-  boroughs: { noun: 'borough', perfect: 0, scale: 1.5 },
+  places: { noun: 'neighbourhood', radius: 0.5, scale: 2.5 },
+  stations: { noun: 'tube station', radius: 0.2, scale: 1.5 },
+  landmarks: { noun: 'landmark', radius: 0.2, scale: 2.0 },
+  boroughs: { noun: 'borough', radius: 0, scale: 2.0 },
 };
 
 /** Every game rides from the famous centre out to cabbie territory. */
@@ -23,15 +24,23 @@ export const MISSED_BELOW = 500;
 /** How long a place you've been asked stays out of new games, missed or not. */
 const REST = 12 * 3600e3;
 
+/** How far from its centre a target still counts as hit. */
+export const radiusOf = (item, kind) => item.r ?? KINDS[kind].radius;
+
+/**
+ * Points for a guess `km` beyond the edge of the target. Flat near the edge, then a
+ * long tail, so being in the right part of town still earns something.
+ */
 export function pointsFor(km, kind, hinted = false) {
-  const { perfect, scale } = KINDS[kind];
-  const raw = km <= perfect ? MAX_POINTS : MAX_POINTS * Math.exp(-(km - perfect) / scale);
+  const x = km / KINDS[kind].scale;
+  const raw = MAX_POINTS / (1 + x * x);
   return Math.round(hinted ? raw / 2 : raw);
 }
 
 /**
- * Score a guess. For point targets it's straight-line distance; for boroughs a
- * click anywhere inside counts as exact, otherwise distance to the nearest edge.
+ * Score a guess. Boroughs are their outline; everything else is a circle around its
+ * centre. A click anywhere inside counts as exact, otherwise it's distance to the edge.
+ * `km` is what the player is told: to the borough's edge, or to the answer's pin.
  */
 export function judge(target, guess, kind, hinted = false) {
   if (kind === 'boroughs') {
@@ -46,10 +55,11 @@ export function judge(target, guess, kind, hinted = false) {
     };
   }
   const km = distanceKm(guess, target);
+  const radius = radiusOf(target, kind);
   return {
     km,
-    points: pointsFor(km, kind, hinted),
-    inside: km <= KINDS[kind].perfect,
+    points: pointsFor(Math.max(0, km - radius), kind, hinted),
+    inside: km <= radius,
     nearest: { lat: target.lat, lng: target.lng },
     direction: compass(bearing(guess, target)),
   };

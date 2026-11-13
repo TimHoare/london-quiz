@@ -286,7 +286,7 @@ function confirmGuess() {
   $('r-verdict').textContent = kind === 'boroughs' && res.inside && !game.hinted ? 'Spot on' : verdict(res.points);
   $('r-points').textContent = `+${fmt.format(res.points)}`;
   $('r-clue').hidden = !game.hinted;
-  $('r-detail').replaceChildren(...describe(kind, res));
+  $('r-detail').replaceChildren(...describe(kind, item, res));
   $('r-context').textContent = context(kind, item);
   $('next').textContent = game.i === STOPS - 1 ? 'See how you did' : 'Next stop';
   show('result');
@@ -297,17 +297,24 @@ function confirmGuess() {
 function zoomTo(r, maxZoom) {
   const b = L.latLngBounds([r.guess, r.res.nearest]);
   if (r.kind === 'boroughs') b.extend(L.geoJSON(r.item.geometry).getBounds());
+  else if (r.item.r) b.extend(L.latLng(r.item).toBounds(r.item.r * 2000));
   fit(b, { maxZoom });
 }
 
+/** Boroughs, and the big parks and areas that are drawn as a circle on the reveal. */
+const hasArea = (kind, item) => kind === 'boroughs' || Boolean(item.r);
+
 /** The headline fact of a result: how far off, and which way to look. */
-function describe(kind, res) {
+function describe(kind, item, res) {
   const strong = (text) => Object.assign(document.createElement('strong'), { textContent: text });
   if (kind === 'boroughs') {
     if (res.inside) return [strong('Inside the borough')];
     return [strong(formatKm(res.km)), ` outside. The borough lies to the ${res.direction}.`];
   }
   if (res.km < 0.05) return [strong('Right on top of it')];
+  if (res.inside && hasArea(kind, item)) {
+    return [strong('Inside the area'), `. Its middle is ${formatKm(res.km)} ${res.direction} of your pin.`];
+  }
   return [strong(formatKm(res.km)), ` ${res.direction} of your pin`];
 }
 
@@ -344,6 +351,12 @@ function drawReveal(layer, { kind, item, guess, res }, { small = false, permanen
     L.geoJSON(item.geometry, {
       interactive: false,
       style: { color: colour, weight: 2.5, fillColor: colour, fillOpacity: 0.14 },
+    }).addTo(layer);
+  } else if (item.r) {
+    // The stretch that counted as on target, so a big park or area reads as big.
+    L.circle(item, {
+      radius: item.r * 1000, interactive: false,
+      color: colour, weight: small ? 1.5 : 2, fillColor: colour, fillOpacity: 0.14,
     }).addTo(layer);
   }
   if (!(kind === 'boroughs' && res.inside)) {
@@ -395,7 +408,7 @@ function finish() {
     li.innerHTML = '<span class="s-dot"></span><span class="s-name"></span><span class="s-km"></span><span class="s-pts"></span>';
     li.querySelector('.s-name').textContent = r.item.name;
     if (r.hinted) li.querySelector('.s-name').append(Object.assign(document.createElement('span'), { className: 's-clue', textContent: 'clue' }));
-    li.querySelector('.s-km').textContent = r.kind === 'boroughs' && r.res.inside ? 'inside' : formatKm(r.res.km);
+    li.querySelector('.s-km').textContent = r.res.inside && hasArea(r.kind, r.item) ? 'inside' : formatKm(r.res.km);
     li.querySelector('.s-pts').textContent = fmt.format(r.res.points);
     const select = () => {
       list.querySelector('.is-selected')?.classList.remove('is-selected');

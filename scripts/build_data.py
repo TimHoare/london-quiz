@@ -186,10 +186,18 @@ for p in places:
     if counts[p["name"]] > 1:
         p["qualifier"] = p["borough"]
 
+# How far from the centre (km) still counts as being in the place. Most neighbourhoods
+# are a kilometre or so across; OSM "towns" are bigger, and a few areas are far bigger.
+PLACE_RADIUS = {"neighbourhood": 0.5, "quarter": 0.5, "suburb": 0.5, "village": 0.5, "town": 0.7}
+BIG_PLACES = {"Isle of Dogs": 1.3}
+
 out = []
 for p in sorted(places, key=lambda p: p["name"]):
     pid = slug(p["name"] + ("-" + p["borough"] if p.get("qualifier") else ""))
     item = {"id": pid, "name": p["name"], "lat": p["lat"], "lng": p["lng"], "borough": p["borough"], "tier": p["tier"]}
+    r = BIG_PLACES.get(p["name"], PLACE_RADIUS[p["type"]])
+    if r != 0.5:
+        item["r"] = r
     if p.get("qualifier"):
         item["qualifier"] = p["qualifier"]
     out.append(item)
@@ -226,6 +234,27 @@ FIX = {  # Nominatim misses or picked a neighbouring feature; values checked by 
     "Olympic Stadium": (51.53865, -0.01662),
     "Stamford Bridge": (51.48167, -0.19098),
     "The O2": (51.50303, 0.00317),
+    # Nominatim's point sat off to one side of these; moved to the centroid of the OSM outline.
+    "Kew Gardens": (51.47748, -0.29695),
+    "Richmond Park": (51.44186, -0.27660),
+    "Hampstead Heath": (51.56520, -0.16957),
+    "Bushy Park": (51.41538, -0.33871),
+    "Victoria Park": (51.53790, -0.03802),
+    "Wormwood Scrubs": (51.52148, -0.23997),
+    "Walthamstow Wetlands": (51.58555, -0.05058),
+}
+# Landmarks that are bigger than a building: how far from the centre (km) still counts
+# as being on it. Parks and airports are sized from the area of their OSM outline.
+LANDMARK_RADIUS = {
+    "Heathrow Airport": 2.0, "Richmond Park": 1.8, "Bushy Park": 1.3, "Hampstead Heath": 1.1,
+    "Walthamstow Wetlands": 0.9, "Hyde Park": 0.75, "Kew Gardens": 0.75, "Regent's Park": 0.7,
+    "Victoria Park": 0.6, "Hackney Marshes": 0.6, "Wanstead Flats": 0.6, "Battersea Park": 0.55,
+    "Clapham Common": 0.55, "Crystal Palace Park": 0.5, "Wormwood Scrubs": 0.5, "Osterley Park": 0.5,
+    "London City Airport": 0.5, "Brick Lane": 0.45, "Peckham Rye": 0.35, "Kensal Green Cemetery": 0.35,
+    "Royal Arsenal": 0.35, "Primrose Hill": 0.3, "Hampton Court Palace": 0.3, "Alexandra Palace": 0.3,
+    "Syon House": 0.3, "Camden Market": 0.3, "Barbican Centre": 0.3, "Thames Barrier": 0.3,
+    "Highgate Cemetery": 0.25, "Brompton Cemetery": 0.25, "Buckingham Palace": 0.25, "London Zoo": 0.25,
+    "All England Club (Wimbledon)": 0.25, "Olympic Stadium": 0.25,
 }
 EXTRA = [
     {"name": "The Oval", "tier": 2, "lat": 51.48375, "lng": -0.11496},
@@ -238,8 +267,12 @@ landmarks = []
 for l in load("landmarks-geocoded.json") + EXTRA:
     lat, lng = FIX.get(l["name"], (l["lat"], l["lng"]))
     name = RENAME.get(l["name"], l["name"])
-    landmarks.append({"id": slug(name), "name": name, "lat": lat, "lng": lng, "tier": l["tier"],
-                      "borough": borough_of(lat, lng)})
+    item = {"id": slug(name), "name": name, "lat": lat, "lng": lng, "tier": l["tier"], "borough": borough_of(lat, lng)}
+    if name in LANDMARK_RADIUS:
+        item["r"] = LANDMARK_RADIUS[name]
+    landmarks.append(item)
+missing = set(LANDMARK_RADIUS) - {l["name"] for l in landmarks}
+assert not missing, f"sized landmarks not in the list: {missing}"
 landmarks.sort(key=lambda l: l["name"])
 print("landmarks per tier:", {t: sum(1 for s in landmarks if s["tier"] == t) for t in (1, 2, 3)})
 dump("landmarks.json", landmarks)

@@ -30,12 +30,33 @@ test('bearings and compass points', () => {
 
 test('scoring rewards closeness and halves with a clue', () => {
   assert.equal(pointsFor(0, 'places'), MAX_POINTS);
-  assert.equal(pointsFor(0.39, 'places'), MAX_POINTS);
   assert.ok(pointsFor(1, 'places') > pointsFor(3, 'places'));
-  assert.ok(pointsFor(20, 'places') < 5);
+  // Gentle near the edge, with a long tail: the right part of town still scores.
+  assert.ok(pointsFor(1, 'places') > 800, pointsFor(1, 'places'));
+  assert.ok(pointsFor(5, 'places') > 150, pointsFor(5, 'places'));
+  assert.ok(pointsFor(20, 'places') < 25, pointsFor(20, 'places'));
+  assert.ok(pointsFor(1, 'stations') < pointsFor(1, 'places'), 'a station is a dot, so tighter');
   assert.equal(pointsFor(0, 'places', true), MAX_POINTS / 2);
   assert.equal(verdict(1000), 'Spot on');
   assert.equal(verdict(0), 'Miles off');
+});
+
+test('anywhere in a big park or area scores full marks', () => {
+  const hyde = byName(landmarks, 'Hyde Park');
+  // Speakers' Corner, by Marble Arch, is well off the centre but inside.
+  const speakers = judge(hyde, { lat: 51.5122, lng: -0.1590 }, 'landmarks');
+  assert.equal(speakers.inside, true);
+  assert.equal(speakers.points, MAX_POINTS);
+  // The park's far corners (Hyde Park Corner, the Serpentine bridge) are as good as.
+  for (const corner of [{ lat: 51.5030, lng: -0.1530 }, { lat: 51.5053, lng: -0.1750 }]) {
+    assert.ok(judge(hyde, corner, 'landmarks').points >= 990);
+  }
+  // Mudchute, at the bottom of the Isle of Dogs, is well away from the label.
+  const res = judge(byName(places, 'Isle of Dogs'), { lat: 51.4905, lng: -0.0145 }, 'places');
+  assert.equal(res.points, MAX_POINTS);
+  // A building-sized landmark is still a dot.
+  const pauls = byName(landmarks, "St Paul's Cathedral");
+  assert.ok(judge(pauls, { lat: pauls.lat + 0.006, lng: pauls.lng }, 'landmarks').points < MAX_POINTS);
 });
 
 test('every place sits inside the borough it claims', () => {
